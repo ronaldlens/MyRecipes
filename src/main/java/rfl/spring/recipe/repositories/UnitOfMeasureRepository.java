@@ -5,7 +5,7 @@ import rfl.spring.recipe.domain.UnitOfMeasure;
 
 import java.util.Optional;
 
-public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Loong> {
+public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Long> {
 
     Optional<UnitOfMeasure> findUnitOfMeasureByName(String name);
 }
