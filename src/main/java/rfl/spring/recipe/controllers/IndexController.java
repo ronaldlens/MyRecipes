@@ -1,16 +1,17 @@
 package rfl.spring.recipe.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import rfl.spring.recipe.domain.Category;
+import rfl.spring.recipe.domain.Recipe;
 import rfl.spring.recipe.domain.UnitOfMeasure;
-import rfl.spring.recipe.repositories.CategoryRepository;
-import rfl.spring.recipe.repositories.UnitOfMeasureRepository;
 import rfl.spring.recipe.services.RecipeService;
 
 import java.util.Optional;
+import java.util.Set;
 
+@Slf4j
 @Controller
 public class IndexController {
     private final RecipeService recipeService;
@@ -21,7 +22,11 @@ public class IndexController {
 
     @RequestMapping({"","/","/index"})
     public String getIndexPage(Model model) {
-        model.addAttribute("recipes", recipeService.getRecipes());
+        log.debug("Getting index page");
+        Set<Recipe> recipes = recipeService.getRecipes();
+        model.addAttribute("recipes", recipes);
+        String logMsg = "found " + recipes.size() + " recipes";
+        log.debug(logMsg);
         return "index";
     }
 }

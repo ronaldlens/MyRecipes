@@ -1,19 +1,21 @@
 package rfl.spring.recipe.bootstrap;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import rfl.spring.recipe.domain.*;
 import rfl.spring.recipe.repositories.CategoryRepository;
 import rfl.spring.recipe.repositories.RecipeRepository;
 import rfl.spring.recipe.repositories.UnitOfMeasureRepository;
 
-import javax.swing.text.html.Option;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -28,8 +30,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         recipeRepository.saveAll(getRecipes());
+        log.debug("Bootstrapping data");
     }
 
     private List<Recipe> getRecipes() {
@@ -56,8 +60,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         UnitOfMeasure eachUom = eachUomOptional.get();
 
         // get categories
-        Optional<Category> americanOptional = categoryRepository.findCategoryByName("American");
-        Optional<Category> mexicanOptional = categoryRepository.findCategoryByName("Mexican");
+        Optional<Category> americanOptional = categoryRepository.findByDescription("American");
+        Optional<Category> mexicanOptional = categoryRepository.findByDescription("Mexican");
 
         if (!americanOptional.isPresent() || !mexicanOptional.isPresent()) {
             throw new RuntimeException("Expected Category not found");
@@ -66,6 +70,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         Category americanCategory = americanOptional.get();
         Category mexicanCategory = mexicanOptional.get();
 
+        System.out.println(americanCategory.getDescription());
         Recipe guacamoleRecipe = new Recipe();
 
         guacamoleRecipe.setDescription("Perfect Guacamole");
@@ -73,8 +78,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacamoleRecipe.setCookTime(0);
         guacamoleRecipe.setDifficulty(Difficulty.EASY);
 
-        guacamoleRecipe.addCategory(americanCategory);
-        guacamoleRecipe.addCategory(mexicanCategory);
+        guacamoleRecipe.getCategories().add(americanCategory);
+        guacamoleRecipe.getCategories().add(mexicanCategory);
 
         guacamoleRecipe.setDirections("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
                 "\n" +
@@ -163,8 +168,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         tacosRecipe.addIngredient(new Ingredient("cup sour cream thinned with 1/4 cup milk", new BigDecimal(4), cupUom));
         tacosRecipe.addIngredient(new Ingredient("lime, cut into wedges", new BigDecimal(4), eachUom));
 
-        tacosRecipe.addCategory(americanCategory);
-        tacosRecipe.addCategory(mexicanCategory);
+        tacosRecipe.getCategories().add(americanCategory);
+        tacosRecipe.getCategories().add(mexicanCategory);
 
         recipes.add(tacosRecipe);
 
