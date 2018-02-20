@@ -7,16 +7,16 @@ import rfl.spring.recipe.domain.UnitOfMeasure;
 
 import static org.junit.Assert.*;
 
-public class UnitOfMeasureCommandTpUnitOfMeasureTest {
+public class UnitOfMeasureCommandToUnitOfMeasureTest {
 
     public static final String DESCRIPTION = "description";
     public static final Long LONG_VALUE = new Long(1L);
 
-    UnitOfMeasureCommandTpUnitOfMeasure converter;
+    UnitOfMeasureCommandToUnitOfMeasure converter;
 
     @Before
     public void setUp() throws Exception {
-        converter = new UnitOfMeasureCommandTpUnitOfMeasure();
+        converter = new UnitOfMeasureCommandToUnitOfMeasure();
     }
 
     @Test

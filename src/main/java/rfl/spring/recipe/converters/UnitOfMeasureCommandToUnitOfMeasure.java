@@ -8,7 +8,7 @@ import rfl.spring.recipe.command.UnitOfMeasureCommand;
 import rfl.spring.recipe.domain.UnitOfMeasure;
 
 @Component
-public class UnitOfMeasureCommandTpUnitOfMeasure implements Converter<UnitOfMeasureCommand, UnitOfMeasure>{
+public class UnitOfMeasureCommandToUnitOfMeasure implements Converter<UnitOfMeasureCommand, UnitOfMeasure>{
 
     @Synchronized
     @Nullable
