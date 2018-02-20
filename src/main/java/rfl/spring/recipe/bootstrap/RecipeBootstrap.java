@@ -76,7 +76,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacamoleRecipe.setDescription("Perfect Guacamole");
         guacamoleRecipe.setPrepTime(10);
         guacamoleRecipe.setCookTime(0);
+        guacamoleRecipe.setServings(6);
         guacamoleRecipe.setDifficulty(Difficulty.EASY);
+        guacamoleRecipe.setSource("website name");
+        guacamoleRecipe.setUrl("http://www.recipes.com/123");
 
         guacamoleRecipe.getCategories().add(americanCategory);
         guacamoleRecipe.getCategories().add(mexicanCategory);
