@@ -23,6 +23,8 @@ public class RecipeToRecipeCommandTest {
     public static final Long ING2ID = new Long(8L);
     public static final Long NOTESID = new Long(9L);
 
+
+
     RecipeToRecipeCommand converter;
 
     @Before
